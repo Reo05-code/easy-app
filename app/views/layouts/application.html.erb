@@ -8,39 +8,35 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-
   </head>
 
-  <body>
-    <% if user_signed_in? %>
-  <div class="flex flex-col sm:flex-row items-center justify-between bg-blue-50 border border-blue-100 px-6 py-5 rounded-2xl shadow-md max-w-4xl mx-auto my-6 space-y-4 sm:space-y-0">
-    <div class="text-center sm:text-left text-gray-800">
-      <span class="font-semibold text-blue-700 text-lg">ログイン中：</span>
-      <span class="font-bold text-blue-600 text-2xl"><%= current_user.username.presence || current_user.email %></span>
-    </div>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- ヘッダー -->
+    <header class="flex flex-col sm:flex-row items-center justify-between bg-blue-50 border border-blue-100 px-6 py-5 rounded-2xl shadow-md max-w-4xl mx-auto my-6 space-y-4 sm:space-y-0">
+      <!-- 左：アプリ名リンク -->
+      <div class="text-center sm:text-left">
+        <%= link_to "EasyApp", root_path, class: "text-2xl font-bold text-blue-700 hover:text-blue-600" %>
+      </div>
 
-    <div>
-      <%= button_to "ログアウト", destroy_user_session_path,
-            method: :delete,
-            form: { class: "inline" },
-            class: "bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-black text-lg font-semibold py-3 px-8 rounded-full shadow-md transition-transform duration-300 hover:scale-105" %>
-    </div>
-  </div>
+      <!-- 右：ログイン状態 -->
+      <div class="text-center sm:text-right">
+        <% if user_signed_in? %>
+          <span class="font-semibold text-gray-700 mr-4"></span>
+          <span class="font-bold text-blue-600 text-xl"><%= current_user.username.presence || current_user.email %></span>
+          <%= button_to "ログアウト", destroy_user_session_path,
+                method: :delete,
+                form: { class: "inline" },
+                class: "ml-4 bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-gray-700 text-lg font-semibold py-2.5 px-6 rounded-full shadow transition-all duration-300 hover:scale-105" %>
+        <% else %>
+          <%= link_to "新規登録", new_user_registration_path, class: "mr-2 text-blue-600 hover:underline" %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-blue-600 hover:underline" %>
+        <% end %>
+      </div>
+    </header>
 
-
-    <%= button_to "ログアウト", destroy_user_session_path,
-          method: :delete,
-          class: "bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white text-lg font-semibold py-2.5 px-6 rounded-full shadow transition-all duration-300" %>
-  </div>
-
-
-
-    <% else %>
-      <%= link_to "新規登録", new_user_registration_path %> |
-      <%= link_to "ログイン", new_user_session_path %>
-    <% end %>
-
-    <%= yield %> <!-- ← これがないと各ページの中身が表示されません -->
+    <!-- ページコンテンツ -->
+    <main class="max-w-4xl mx-auto px-4">
+      <%= yield %>
+    </main>
   </body>
 </html>
