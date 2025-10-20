@@ -15,15 +15,7 @@
   <div id="posts" class="space-y-6">
     <% if @posts.any? %>
       <% @posts.each do |post| %>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200 p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <%= render post %>
-
-          <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-            <%= link_to "Show", post, class: "px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition" %>
-            <%= link_to "Edit", edit_post_path(post), class: "px-4 py-2 rounded-md bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-medium transition" %>
-            <%= button_to "Destroy", post, method: :delete, class: "px-4 py-2 rounded-md bg-red-600 hover:bg-red-500 text-white font-medium transition cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
+        <%= render post %>
       <% end %>
     <% else %>
       <p class="text-center my-12 text-gray-500 text-lg">No posts found.</p>
