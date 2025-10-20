@@ -14,9 +14,27 @@
 
   <body>
     <% if user_signed_in? %>
-      ログイン中 <%= current_user.username.presence || current_user.email %>
+  <div class="flex flex-col sm:flex-row items-center justify-between bg-blue-50 border border-blue-100 px-6 py-5 rounded-2xl shadow-md max-w-4xl mx-auto my-6 space-y-4 sm:space-y-0">
+    <div class="text-center sm:text-left text-gray-800">
+      <span class="font-semibold text-blue-700 text-lg">ログイン中：</span>
+      <span class="font-bold text-blue-600 text-2xl"><%= current_user.username.presence || current_user.email %></span>
+    </div>
 
-      <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <div>
+      <%= button_to "ログアウト", destroy_user_session_path,
+            method: :delete,
+            form: { class: "inline" },
+            class: "bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-black text-lg font-semibold py-3 px-8 rounded-full shadow-md transition-transform duration-300 hover:scale-105" %>
+    </div>
+  </div>
+
+
+    <%= button_to "ログアウト", destroy_user_session_path,
+          method: :delete,
+          class: "bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white text-lg font-semibold py-2.5 px-6 rounded-full shadow transition-all duration-300" %>
+  </div>
+
+
 
     <% else %>
       <%= link_to "新規登録", new_user_registration_path %> |
